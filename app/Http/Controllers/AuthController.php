@@ -58,7 +58,7 @@ class AuthController extends Controller
         $user = User::where('account_name', $request->account_name)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'username atau password salah '], 401);
         }
 
         // $user = User::where('email', $request['email'])->firstOrFail();

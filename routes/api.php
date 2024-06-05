@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
@@ -33,6 +35,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('expenses', ExpenseController::class);
+    Route::apiResource('types', TypeController::class);
+
+    // Route::post('/expenses', [ExpenseController::class, 'store']);
+    // Route::get('/expenses', [ExpenseController::class, 'index']);
 });
 
 // Route::post('register', [AuthController::class, 'register']);
