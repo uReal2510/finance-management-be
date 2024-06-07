@@ -5,51 +5,55 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    // Fetch all categories
     public function index()
     {
-        $categories = Category::all();
-        return response()->json($categories, 200);
+        return Category::where('user_id', Auth::id())->get();
     }
 
-    // Store a new category
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string',
         ]);
 
-        $category = Category::create($request->all());
-        return response()->json($category, 201);
+        $category = new Category([
+            'name' => $request->name,
+            'user_id' => Auth::id(),
+        ]);
+
+        $category->save();
+
+        return response()->json(['message' => 'Category created successfully!'], 201);
     }
 
-    // Fetch a single category
     public function show($id)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         return response()->json($category, 200);
     }
 
-    // Update a category
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'sometimes|required|string',
+            'name' => 'required|string|max:255',
         ]);
 
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
-        return response()->json($category, 200);
+        $category = Category::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $category->name = $request->name;
+        $category->save();
+
+        return response()->json(['message' => 'Category updated successfully!']);
     }
 
-    // Delete a category
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $category->delete();
-        return response()->json(null, 204);
+
+        return response()->json(['message' => 'Category deleted successfully!']);
     }
 }
