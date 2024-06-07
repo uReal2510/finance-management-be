@@ -16,7 +16,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        //2 di bawah tambahan
         'account_name',
         'balance',
     ];
@@ -28,7 +27,12 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        // tambahan
         'balance' => 'decimal:2',
     ];
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
 }
