@@ -31,16 +31,16 @@ Route::middleware('auth:sanctum')->group(function () {
         return response()->json($request->user());
     });
     Route::get('/profile', [AuthController::class, 'profile']);
-    
+    Route::get('/expenses', [ExpenseController::class, 'index']);
+    Route::post('/expenses', [ExpenseController::class, 'store']);
+
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('expenses', ExpenseController::class);
     Route::apiResource('types', TypeController::class);
-
-    // Route::post('/expenses', [ExpenseController::class, 'store']);
-    // Route::get('/expenses', [ExpenseController::class, 'index']);
 });
+
+
 
 // Route::post('register', [AuthController::class, 'register']);
 // Route::post('login', [AuthController::class, 'login']);

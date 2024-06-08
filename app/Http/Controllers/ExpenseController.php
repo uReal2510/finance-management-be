@@ -6,37 +6,43 @@ use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ExpenseController extends Controller
 {
     public function index()
     {
-        $expense = Expense::all();
-        return response()->json($expense, 200);
+        try {
+            $userId = Auth::id();
+            Log::info('Fetching expenses for user ID: ' . $userId);
+            
+            $expenses = Expense::where('user_id', $userId)->get();
+            Log::info('Expenses: ' . $expenses);
+            return response()->json($expenses);
+        } catch (\Exception $e) {
+            Log::error('Error fetching expenses: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to fetch expenses'], 500);
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'tipe' => 'required|string',
-            'kategori' => 'required|string',
-            'deskripsi' => 'required|string',
-            'jumlah' => 'required|numeric',
-        ]);
+        try{
+            $userId = Auth::id();
 
-        $expense = Expense::create([
-            'tanggal' => $request->tanggal,
-            'tipe' => $request->tipe,
-            'kategori' => $request->kategori,
-            'deskripsi' => $request->deskripsi,
-            'jumlah' => $request->jumlah,
-            'user_id' => Auth::id(),
-        ]);
-
-        $expense->save();
-        
-        return response()->json(['message' => 'Category created successfully!'], 201);
+            $expense = Expense::create([
+                'user_id' => $userId,
+                'tanggal' => $request->input('tanggal'),
+                'tipe' => $request->input('tipe'),
+                'kategori' => $request->input('kategori'),
+                'deskripsi' => $request->input('deskripsi'),
+                'jumlah' => $request->input('jumlah'),
+            ]);
+            return response()->json(['message' => 'Category created successfully!'], 201);
+        } catch (\Exception $e) {
+            Log::error('Error creating expense: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to create expense'], 500);
+        }
     }
 
     public function show($id)
