@@ -53,26 +53,33 @@ class ExpenseController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'tipe' => 'required|string',
-            'kategori' => 'required|string',
-            'deskripsi' => 'required|string',
-            'jumlah' => 'required|numeric',
-        ]);
+        $expense = Expense::find($id);
 
-        $expense = Expense::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-        $expense->name = $request->name;
+        if (!$expense) {
+            return response()->json(['message' => 'Expense not found'], 404);
+        }
+
+        $expense->tanggal = $request->input('tanggal');
+        $expense->tipe = $request->input('tipe');
+        $expense->kategori = $request->input('kategori');
+        $expense->deskripsi = $request->input('deskripsi');
+        $expense->jumlah = $request->input('jumlah');
+
         $expense->save();
 
-        return response()->json(['message' => 'Expense updated successfully!']);
+        return response()->json(['message' => 'Expense updated successfully', 'expense' => $expense], 200);
     }
 
     public function destroy($id)
     {
-        $expense = Expense::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $expense = Expense::find($id);
+
+        if (!$expense) {
+            return response()->json(['message' => 'Expense not found'], 404);
+        }
+
         $expense->delete();
 
-        return response()->json(['message' => 'Expense deleted successfully!']);
+        return response()->json(['message' => 'Expense deleted successfully'], 200);
     }
 }

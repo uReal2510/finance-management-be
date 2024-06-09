@@ -33,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/expenses', [ExpenseController::class, 'index']);
     Route::post('/expenses', [ExpenseController::class, 'store']);
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
+Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
 
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
