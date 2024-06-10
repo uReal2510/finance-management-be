@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    // Fetch all transactions
     public function index()
     {
         $transactions = Transaction::all();
         return response()->json($transactions, 200);
     }
 
-    // Store a new transaction
     public function store(Request $request)
     {
         $request->validate([
@@ -30,14 +28,12 @@ class TransactionController extends Controller
         return response()->json($transaction, 201);
     }
 
-    // Fetch a single transaction
     public function show($id)
     {
         $transaction = Transaction::findOrFail($id);
         return response()->json($transaction, 200);
     }
 
-    // Update a transaction
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -53,7 +49,6 @@ class TransactionController extends Controller
         return response()->json($transaction, 200);
     }
 
-    // Delete a transaction
     public function destroy($id)
     {
         $transaction = Transaction::findOrFail($id);

@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    // Fetch all accounts
     public function index()
     {
         $accounts = Account::all();
         return response()->json($accounts, 200);
     }
 
-    // Store a new account
     public function store(Request $request)
     {
         $request->validate([
@@ -27,14 +25,12 @@ class AccountController extends Controller
         return response()->json($account, 201);
     }
 
-    // Fetch a single account
     public function show($id)
     {
         $account = Account::findOrFail($id);
         return response()->json($account, 200);
     }
 
-    // Update an account
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -47,7 +43,6 @@ class AccountController extends Controller
         return response()->json($account, 200);
     }
 
-    // Delete an account
     public function destroy($id)
     {
         $account = Account::findOrFail($id);

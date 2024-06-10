@@ -5,7 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\TipeController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
@@ -32,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/expenses', [ExpenseController::class, 'index']);
+    // Route::get('/tipes', [TipeController::class, 'index']);
+    // Route::get('/categories', [CategoryController::class, 'index']);
+
     Route::post('/expenses', [ExpenseController::class, 'store']);
     Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
 Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
@@ -39,7 +42,7 @@ Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('types', TypeController::class);
+    Route::apiResource('tipes', TipeController::class);
 });
 
 
