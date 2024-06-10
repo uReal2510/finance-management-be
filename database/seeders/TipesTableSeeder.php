@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class TypesTableSeeder extends Seeder
+class TipesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('types')->insert([
+        DB::table('tipes')->insert([
             [
                 'name' => 'Pemasukan', 
                 'created_at' => Carbon::now(), 

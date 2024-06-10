@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\tipe;
 use Illuminate\Http\Request;
 
-class TypeController extends Controller
+class TipeController extends Controller
 {
     public function index()
     {
-        $types = Type::all();
-        return response()->json($types, 200);
+        $tipes = tipe::all();
+        return response()->json($tipes, 200);
     }
 
     public function store(Request $request)
@@ -20,14 +20,14 @@ class TypeController extends Controller
             'name' => 'required|string',
         ]);
 
-        $type = Type::create($request->all());
-        return response()->json($type, 201);
+        $tipe = tipe::create($request->all());
+        return response()->json($tipe, 201);
     }
 
     public function show($id)
     {
-        $type = Type::findOrFail($id);
-        return response()->json($type, 200);
+        $tipe = tipe::findOrFail($id);
+        return response()->json($tipe, 200);
     }
 
     public function update(Request $request, $id)
@@ -36,15 +36,15 @@ class TypeController extends Controller
             'name' => 'sometimes|required|string',
         ]);
 
-        $type = Type::findOrFail($id);
-        $type->update($request->all());
-        return response()->json($type, 200);
+        $tipe = tipe::findOrFail($id);
+        $tipe->update($request->all());
+        return response()->json($tipe, 200);
     }
 
     public function destroy($id)
     {
-        $type = Type::findOrFail($id);
-        $type->delete();
+        $tipe = tipe::findOrFail($id);
+        $tipe->delete();
         return response()->json(null, 204);
     }
 }
