@@ -33,12 +33,11 @@ class ExpenseController extends Controller
             $expense = Expense::create([
                 'user_id' => $userId,
                 'tanggal' => $request->input('tanggal'),
-                'tipe' => $request->input('tipe'),
                 'kategori' => $request->input('kategori'),
                 'deskripsi' => $request->input('deskripsi'),
                 'jumlah' => $request->input('jumlah'),
             ]);
-            return response()->json(['message' => 'Category created successfully!'], 201);
+            return response()->json(['message' => 'expense created successfully!'], 201);
         } catch (\Exception $e) {
             Log::error('Error creating expense: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to create expense'], 500);
@@ -48,11 +47,12 @@ class ExpenseController extends Controller
     public function show($id)
     {
         $expense = Expense::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-        return response()->json($category, 200);
+        return response()->json($expense, 200);
     }
 
     public function update(Request $request, $id)
     {
+        
         $expense = Expense::find($id);
 
         if (!$expense) {
@@ -60,7 +60,6 @@ class ExpenseController extends Controller
         }
 
         $expense->tanggal = $request->input('tanggal');
-        $expense->tipe = $request->input('tipe');
         $expense->kategori = $request->input('kategori');
         $expense->deskripsi = $request->input('deskripsi');
         $expense->jumlah = $request->input('jumlah');

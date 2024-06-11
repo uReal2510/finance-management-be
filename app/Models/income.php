@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Expense extends Model
+class income extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'tanggal',  
+        'tanggal', 
         'kategori', 
         'deskripsi', 
         'jumlah',
@@ -21,15 +21,4 @@ class Expense extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::creating(function ($expense) {
-    //         $expense->user_id = auth()->id();
-    //     });
-    // }
-
 }

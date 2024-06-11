@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\TipeController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
@@ -32,12 +33,17 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::get('/expenses', [ExpenseController::class, 'index']);
+    Route::get('/incomes', [IncomeController::class, 'index']);
     // Route::get('/tipes', [TipeController::class, 'index']);
     // Route::get('/categories', [CategoryController::class, 'index']);
 
     Route::post('/expenses', [ExpenseController::class, 'store']);
     Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
-Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
+    Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
+
+    Route::post('/incomes', [IncomeController::class, 'store']);
+    Route::put('/incomes/{id}', [IncomeController::class, 'update']);
+    Route::delete('/incomes/{id}', [IncomeController::class, 'destroy']);
 
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
