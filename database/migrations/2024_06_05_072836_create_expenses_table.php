@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->foreignId('category_id')->constrained('categories');
             $table->date('tanggal');
             $table->string('kategori');
             $table->text('deskripsi');
@@ -34,6 +35,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('expenses', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
         Schema::dropIfExists('expenses');
     }
 };
