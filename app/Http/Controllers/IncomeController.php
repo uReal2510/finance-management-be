@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Income;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +30,15 @@ class IncomeController extends Controller
     {
         try{
             $userId = Auth::id();
+            $kategori = $request->input('kategori');
+
+            $category = Category::where('name', $kategori)->first();
+            
+            if (!$category) {
+                return response()->json(['error' => 'Category not found'], 404);
+            }
+
+            $categoryId = $category->id;
 
             $income = Income::create([
                 'user_id' => $userId,
@@ -36,8 +46,9 @@ class IncomeController extends Controller
                 'kategori' => $request->input('kategori'),
                 'deskripsi' => $request->input('deskripsi'),
                 'jumlah' => $request->input('jumlah'),
+                'category_id' => $categoryId,
             ]);
-            return response()->json(['message' => 'Income created successfully!'], 201);
+            return response()->json(['message' => 'income created successfully!'], 201);
         } catch (\Exception $e) {
             Log::error('Error creating income: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to create income'], 500);

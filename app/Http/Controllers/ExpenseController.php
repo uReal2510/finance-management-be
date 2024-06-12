@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -27,8 +28,18 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
+
         try{
             $userId = Auth::id();
+            $kategori = $request->input('kategori');
+
+            $category = Category::where('name', $validated['kategori'])->first();
+            
+            if (!$category) {
+                return response()->json(['error' => 'Category not found'], 404);
+            }
+
+            $categoryId = $category->id;
 
             $expense = Expense::create([
                 'user_id' => $userId,
@@ -36,6 +47,7 @@ class ExpenseController extends Controller
                 'kategori' => $request->input('kategori'),
                 'deskripsi' => $request->input('deskripsi'),
                 'jumlah' => $request->input('jumlah'),
+                'category_id' => $categoryId,
             ]);
             return response()->json(['message' => 'expense created successfully!'], 201);
         } catch (\Exception $e) {

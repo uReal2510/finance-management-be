@@ -10,11 +10,12 @@ class Expense extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'category_id',
         'tanggal',  
         'kategori', 
         'deskripsi', 
         'jumlah',
-        'user_id'
     ];
 
     public function user()
