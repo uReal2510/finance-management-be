@@ -15,16 +15,6 @@ class Category extends Model
         'user_id',
     ];
 
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function incomes()
     {
         return $this->hasMany(Income::class);

@@ -33,7 +33,7 @@ class ExpenseController extends Controller
             $userId = Auth::id();
             $kategori = $request->input('kategori');
 
-            $category = Category::where('name', $validated['kategori'])->first();
+            $category = Category::where('name', $kategori)->first();
             
             if (!$category) {
                 return response()->json(['error' => 'Category not found'], 404);

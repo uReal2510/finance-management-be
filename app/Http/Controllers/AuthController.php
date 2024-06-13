@@ -18,7 +18,6 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string', //kalau mau buat konfirmasi passsword tambah "confirmed"
             'account_name' => 'nullable|string|max:255',
-            'balance' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -30,7 +29,6 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'account_name' => $request->account_name,
-            'balance' => $request->balance,
         ]);
         
         return response()->json(['message' => 'User created successfully'], 201);

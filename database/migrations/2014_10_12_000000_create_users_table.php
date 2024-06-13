@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('password');
             //2 tambahan baru
             $table->string('account_name')->nullable();
-            $table->decimal('balance', 15, 2)->default(0);
             $table->rememberToken();
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

@@ -17,7 +17,6 @@ class User extends Authenticatable
         'email',
         'password',
         'account_name',
-        'balance',
     ];
 
     protected $hidden = [
@@ -27,7 +26,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'balance' => 'decimal:2',
     ];
 
     public function expenses()

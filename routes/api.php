@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\API\RegisterController;
@@ -47,7 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/incomes/{id}', [IncomeController::class, 'update']);
     Route::delete('/incomes/{id}', [IncomeController::class, 'destroy']);
 
-    Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('categories', CategoryController::class);
 });
@@ -68,7 +66,6 @@ Route::middleware('auth:sanctum')->group(function () {
 //     });
 // });
 
-// Route::apiResource('transactions', TransactionController::class);
 // Route::apiResource('accounts', AccountController::class);
 // Route::apiResource('categories', CategoryController::class);
 // Route::middleware('auth:api')->get('/profile', [AuthController::class, 'profile']);
