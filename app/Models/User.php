@@ -28,9 +28,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function incomes()
+    {
+        return $this->hasMany(Income::class);
+    }
+
     public function expenses()
     {
         return $this->hasMany(Expense::class);
     }
 
+    public function getTotalIncomesAttribute()
+    {
+        return $this->incomes()->sum('jumlah');
+    }
+
+    public function getTotalExpensesAttribute()
+    {
+        return $this->expenses()->sum('jumlah');
+    }
 }

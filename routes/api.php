@@ -23,8 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::middleware('auth:api')->get('/profile', [AuthController::class, 'edit'])->name('profile.edit');
-Route::middleware('auth:api')->put('/profile', [AuthController::class, 'update'])->name('profile.update');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -32,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return response()->json($request->user());
     });
     Route::get('/profile', [AuthController::class, 'profile']);
-    Route::get('/profile', [AuthController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [AuthController::class, 'update'])->name('profile.update');
     Route::get('/expenses', [ExpenseController::class, 'index']);
     Route::get('/incomes', [IncomeController::class, 'index']);

@@ -28,13 +28,4 @@ class Expense extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::creating(function ($expense) {
-    //         $expense->user_id = auth()->id();
-    //     });
-    // }
-
 }

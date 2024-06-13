@@ -64,9 +64,20 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $user = Auth::user();
+        $totalIncomes = $user->total_incomes;
+        $totalExpenses = $user->total_expenses;
+        $balance = $totalIncomes - $totalExpenses;
+
         return response()->json([
-            'success' => true,
-            'user' => $user
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+        'account_name' => $user->account_name,
+        'total_income' => $totalIncomes,
+        'total_expense' => $totalExpenses,
+        'balance' => $balance,
+        'created_at' => $user->created_at,
+        'updated_at' => $user->updated_at,
         ]);
     }
 
