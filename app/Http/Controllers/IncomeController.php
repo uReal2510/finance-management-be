@@ -28,6 +28,13 @@ class IncomeController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'kategori' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|numeric',
+        ]);
+
         try{
             $userId = Auth::id();
             $kategori = $request->input('kategori');
@@ -63,6 +70,13 @@ class IncomeController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'kategori' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|numeric',
+        ]);
+
         $income = Income::find($id);
 
         if (!$income) {
@@ -90,5 +104,22 @@ class IncomeController extends Controller
         $income->delete();
 
         return response()->json(['message' => 'Income deleted successfully'], 200);
+    }
+
+    public function getData(Request $request)
+    {
+        $incomes = Income::selectRaw('DATE(tanggal) as date, COUNT(*) as transactions, SUM(jumlah) as total')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        return response()->json($incomes);
+    }
+
+    public function print()
+    {
+        $incomes = Income::all();
+        $pdf = PDF::loadView('incomes.report', compact('incomes'));
+        return $pdf->download('incomes_report.pdf');
     }
 }

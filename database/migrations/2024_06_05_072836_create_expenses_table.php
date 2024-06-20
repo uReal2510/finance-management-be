@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories');
             $table->date('tanggal');
             $table->string('kategori');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->decimal('jumlah', 10, 2);
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

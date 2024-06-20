@@ -18,6 +18,10 @@ class Expense extends Model
         'jumlah',
     ];
 
+    protected $casts = [
+        'deskripsi' => 'string',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

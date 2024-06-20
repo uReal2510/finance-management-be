@@ -28,6 +28,12 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'kategori' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|numeric',
+        ]);
 
         try{
             $userId = Auth::id();
@@ -64,6 +70,12 @@ class ExpenseController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'kategori' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|numeric',
+        ]);
         
         $expense = Expense::find($id);
 
@@ -92,5 +104,22 @@ class ExpenseController extends Controller
         $expense->delete();
 
         return response()->json(['message' => 'Expense deleted successfully'], 200);
+    }
+
+    public function getData(Request $request)
+    {
+        $expenses = Expense::selectRaw('DATE(tanggal) as date, COUNT(*) as transactions, SUM(jumlah) as total')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        return response()->json($expenses);
+    }
+
+    public function print()
+    {
+        $expenses = Expense::all();
+        $pdf = PDF::loadView('expenses.report', compact('expenses'));
+        return $pdf->download('expenses_report.pdf');
     }
 }

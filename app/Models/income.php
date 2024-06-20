@@ -17,6 +17,9 @@ class income extends Model
         'deskripsi', 
         'jumlah',
     ];
+    protected $casts = [
+        'deskripsi' => 'string',
+    ];
 
     public function user()
     {
