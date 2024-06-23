@@ -108,5 +108,15 @@ class AuthController extends Controller
         return response()->json(['success' => 'Profile updated successfully'], 200);
     }
 
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+
+        // Hapus semua token pengguna saat ini
+        $user->tokens()->delete();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
 }
 
