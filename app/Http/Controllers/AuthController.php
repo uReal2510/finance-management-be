@@ -51,13 +51,11 @@ class AuthController extends Controller
             return response()->json(['message' => 'username atau password salah '], 401);
         }
 
-        // $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            // 'user' => $user, utk menampilkan data user
         ], 200);
     }
 
@@ -92,7 +90,8 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
-            'account_name' => 'nullable|string|max:255',
+            'account_name' => 'required|string|max:255',
+            //'password' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -103,6 +102,9 @@ class AuthController extends Controller
         $user->name = $request->name;   
         $user->email = $request->email;
         $user->account_name = $request->account_name;
+        // if ($request->filled('password')) {
+        //     $user->password = Hash::make($request->password);
+        // }
         $user->save();
 
         return response()->json(['success' => 'Profile updated successfully'], 200);
@@ -111,8 +113,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $user = Auth::user();
-
-        // Hapus semua token pengguna saat ini
         $user->tokens()->delete();
 
         return response()->json(['message' => 'Successfully logged out']);
