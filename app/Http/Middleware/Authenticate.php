@@ -15,7 +15,23 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            return null; // Kembalikan null atau pesan JSON agar tidak mengarahkan ke rute web
         }
+    }
+
+    /**
+     * Handle an unauthenticated user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param array $guards
+     * @return mixed
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        return redirect()->guest(route('login')); // Anda bisa mengubah ini atau menghapusnya jika tidak diperlukan
     }
 }

@@ -91,7 +91,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'account_name' => 'required|string|max:255',
-            //'password' => 'nullable|string|max:255',
+            'password' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -102,9 +102,9 @@ class AuthController extends Controller
         $user->name = $request->name;   
         $user->email = $request->email;
         $user->account_name = $request->account_name;
-        // if ($request->filled('password')) {
-        //     $user->password = Hash::make($request->password);
-        // }
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
 
         return response()->json(['success' => 'Profile updated successfully'], 200);

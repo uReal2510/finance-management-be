@@ -39,6 +39,14 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'redirect' => '/Authenticate', // Ubah ini jika perlu
+        ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+            'redirect' => '/api/login', // Tambahkan ini jika menggunakan API
         ],
     ],
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id')->constrained('categoryis');
             $table->date('tanggal');
             $table->string('kategori');
             $table->text('deskripsi')->nullable();

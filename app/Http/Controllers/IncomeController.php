@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Income;
-use App\Models\Category;
+use App\Models\Categoryi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -39,13 +39,13 @@ class IncomeController extends Controller
             $userId = Auth::id();
             $kategori = $request->input('kategori');
 
-            $category = Category::where('name', $kategori)->first();
+            $categoryi = Categoryi::where('name', $kategori)->first();
             
-            if (!$category) {
+            if (!$categoryi) {
                 return response()->json(['error' => 'Category not found'], 404);
             }
 
-            $categoryId = $category->id;
+            $categoryId = $categoryi->id;
 
             $income = Income::create([
                 'user_id' => $userId,

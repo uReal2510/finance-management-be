@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryeController;
+use App\Http\Controllers\CategoryiController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
@@ -48,5 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/incomes/{id}', [IncomeController::class, 'update']);
     Route::delete('/incomes/{id}', [IncomeController::class, 'destroy']);
 
+    Route::apiResource('categoryi', CategoryiController::class);
+    Route::apiResource('categorye', CategoryeController::class);
     Route::apiResource('categories', CategoryController::class);
 });
