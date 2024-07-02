@@ -1,0 +1,28 @@
+# runtime: php
+# env: flex
+
+# runtime_config:
+#   document_root: public
+
+
+#   skip_files:
+#   .env
+
+#   env_variable:
+#     APP_LOG: errorlog
+#     APP_KEY: base64:5amyDyVZ5O0LT/Zz9iUu9oh3m2bJVGUsGGWm+vdslrQ=
+#     STORAGE_DIR: /tmp
+
+  
+runtime: php55
+
+handlers:
+- url: /styles
+  static_dir: styles
+  
+- url: /images/(.*\.(gif|png|jpg))
+  static_files: images/\1
+  upload: images/(.*\.(gif|png|jpg))
+  
+- url: /.*
+  script: index.php
