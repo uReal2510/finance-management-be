@@ -17,10 +17,19 @@ resources:
   memory_gb: 4
   disk_size_gb: 10
 
+# handlers:
+# - url: /public
+#   static_dir: public
+# - url: /.*
+#   script: auto
+
 handlers:
-- url: /public
-  static_dir: public
+- url: /(.*\.(gif|png|jpg|css|js))$
+  static_files: public/\1
+  upload: public/.*\.(gif|png|jpg|css|js)$
 - url: /.*
+  secure: always
+  redirect_http_response_code: 301
   script: auto
 
 env_variables:
