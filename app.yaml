@@ -2,10 +2,11 @@ runtime: php
 env: flex
 
 runtime_config:
-  document_root: public
+  operating_system: "ubuntu22"
+  runtime_version: "8.3"
 
 skip_files:
-  - .env
+- ^.*\.bak$
 
 automatic_scaling:
   min_num_instances: 1
