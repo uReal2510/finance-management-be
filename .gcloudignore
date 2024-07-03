@@ -1,0 +1,18 @@
+# Ignore files and directories
+.git/
+.gcloudignore
+composer.lock
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore test files
+phpunit.xml
+tests/
+
+# Ignore local storage
+storage/
