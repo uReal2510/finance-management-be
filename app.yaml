@@ -17,6 +17,12 @@ resources:
   memory_gb: 4
   disk_size_gb: 10
 
+handlers:
+- url: /public
+  static_dir: public
+- url: /.*
+  script: auto
+
 env_variables:
   APP_KEY: 'base64:5amyDyVZ5O0LT/Zz9iUu9oh3m2bJVGUsGGWm+vdslrQ='
   APP_ENV: 'local'
