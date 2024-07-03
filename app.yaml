@@ -34,4 +34,4 @@ env_variables:
   DB_PASSWORD: '(|6"_},Dg)NLXq~j'
   APP_ENV: 'production'
   APP_DEBUG: 'false'
-  APP_URL: 'https://theta-anchor-427814-u9.an.r.appspot.com'  # Ganti dengan URL aplikasi kamu
+  APP_URL: 'http://127.0.0.1:8000'  # Ganti dengan URL aplikasi kamu
